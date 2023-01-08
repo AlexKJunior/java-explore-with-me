@@ -20,9 +20,9 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
-    @Size(max = 50)
-    @Column(length = 50)
+
+    @Size(max = 100)
+    @Column
     private String title;
     @Column
     private Boolean pinned;
