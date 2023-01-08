@@ -6,6 +6,8 @@ import ru.practicum.ewm.event.EventState;
 import ru.practicum.ewm.user.model.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Entity
@@ -20,16 +22,22 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @NotNull
+    @Size(max = 1000)
+    @Column(length = 1000)
     private String annotation;
-    @Column
+    @NotNull
+    @Size(max = 2000)
+    @Column(length = 2000)
     private String description;
     @Column(name = "confirmed_requests")
     private Integer confirmedRequests;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @Column
+    @NotNull
+    @Size(max = 200)
+    @Column(length = 200)
     private String title;
     @Column(name = "published_on")
     private LocalDateTime publishedOn;

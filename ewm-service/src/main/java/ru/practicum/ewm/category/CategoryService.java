@@ -24,7 +24,7 @@ public class CategoryService {
 
     @Transactional
     public CategoryDto updateCategory(CategoryDto categoryDto) {
-
+        categoryValidation(categoryDto.getId());
         if (categoryDto.getName() == null && categoryDto.getId() == null) {
             throw new ValidationException("Wrong body");
         }
@@ -41,6 +41,9 @@ public class CategoryService {
         } catch (RuntimeException e) {
             throw new AlreadyExistsException("Name must be unique");
         }
+    }
+
+    private void categoryValidation(Long id) {
     }
 
     @Transactional

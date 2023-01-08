@@ -4,6 +4,8 @@ import lombok.*;
 import ru.practicum.ewm.event.model.Event;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -18,7 +20,10 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @NotNull
+    @Size(max = 50)
+    @Column(length = 50)
     private String title;
     @Column
     private Boolean pinned;

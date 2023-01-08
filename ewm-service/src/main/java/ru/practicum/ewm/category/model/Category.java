@@ -3,6 +3,7 @@ package ru.practicum.ewm.category.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "categories")
@@ -16,6 +17,8 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+
+    @Size(max = 50)
+    @Column(nullable = false, length = 50)
     private String name;
 }
