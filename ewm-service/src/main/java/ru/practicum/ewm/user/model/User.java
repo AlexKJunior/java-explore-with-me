@@ -20,10 +20,10 @@ public class User {
     private Long id;
     @NotNull
     @Size(max = 50)
-    @Column(length =50)
+    @Column(length = 50)
     private String name;
     @NotNull
     @Size(max = 90)
-    @Column(length =90)
+    @Column(length = 90)
     private String email;
 }
