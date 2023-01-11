@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface StatisticDao extends JpaRepository<Hit, Long> {
 
-    List<Hit> findAllByTimestampBetweenAndUriIn(LocalDateTime start, LocalDateTime end, List<String> uris);
+    List<Hit> findAllByTimestampBetweenAndUriIn(LocalDateTime start, LocalDateTime end, String[] uris);
 
     @Query("SELECT COUNT (ip) FROM Hit " +
             "WHERE uri = ?1")
