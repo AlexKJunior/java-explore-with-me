@@ -16,6 +16,5 @@ public class ViewStats {
     private String app;
     @NotBlank
     private String uri;
-    @NotBlank
     private Long hits;
 }

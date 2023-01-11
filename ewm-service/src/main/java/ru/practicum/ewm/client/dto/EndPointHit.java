@@ -1,6 +1,7 @@
 package ru.practicum.ewm.client.dto;
 
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import javax.validation.constraints.NotBlank;
 
@@ -10,14 +11,15 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class EndPointHit {
-    private Long id;
+    Long id;
     @NotBlank
-    private String uri;
+    String uri;
     @NotBlank
-    private String app;
+    String app;
     @NotBlank
-    private String ip;
-    private String timestamp;
-    private Long hits;
+    String ip;
+    String timestamp;
+    Long hits;
 }
