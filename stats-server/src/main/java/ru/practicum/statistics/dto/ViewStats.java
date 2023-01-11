@@ -1,6 +1,7 @@
 package ru.practicum.statistics.dto;
 
 import lombok.*;
+import ru.practicum.statistics.model.Hit;
 
 import javax.validation.constraints.NotBlank;
 
@@ -19,4 +20,8 @@ public class ViewStats {
     private String uri;
     @NotBlank
     private Integer hits;
+
+    public ViewStats(String app, String uri, Hit views) {
+
+    }
 }

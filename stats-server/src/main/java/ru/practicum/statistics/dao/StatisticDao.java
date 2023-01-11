@@ -5,6 +5,9 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.practicum.statistics.model.Hit;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -20,4 +23,6 @@ public interface StatisticDao extends JpaRepository<Hit, Long> {
     @Query("SELECT COUNT (DISTINCT ip) FROM Hit " +
             "WHERE uri = ?1")
     Integer findHitCountByUriWithUniqueIp(String uri);
+
+    Hit getViews(@NotNull @NotBlank @Size(max = 500) String uri);
 }
