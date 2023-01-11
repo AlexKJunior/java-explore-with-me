@@ -30,6 +30,7 @@ public class StatisticsService {
                 .map(hit -> new ViewStats(hit.getApp(), hit.getUri(),
                         statDao.getViews(hit.getUri())))
                 .collect(Collectors.toList());
+
         
         for (Hit hit : hits) {
             Integer hitCount;
