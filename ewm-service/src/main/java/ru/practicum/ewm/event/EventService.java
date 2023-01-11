@@ -200,8 +200,8 @@ public class EventService {
 
         return EventMapper.toFullEventDto(event);
     }
-    
-    @Validated
+
+
     @Transactional
     public EventFullDto rejectEvent(Long eventId) {
         Event event = eventDao.findById(eventId)
