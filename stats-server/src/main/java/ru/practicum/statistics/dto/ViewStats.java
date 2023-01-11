@@ -1,7 +1,6 @@
 package ru.practicum.statistics.dto;
 
 import lombok.*;
-import ru.practicum.statistics.model.Hit;
 
 import javax.validation.constraints.NotBlank;
 
