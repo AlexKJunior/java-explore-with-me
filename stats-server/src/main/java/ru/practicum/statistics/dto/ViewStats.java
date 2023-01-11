@@ -20,8 +20,4 @@ public class ViewStats {
     private String uri;
     @NotBlank
     private Integer hits;
-
-    public ViewStats(String app, String uri, Hit views) {
-
-    }
 }

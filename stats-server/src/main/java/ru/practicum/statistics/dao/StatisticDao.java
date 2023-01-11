@@ -23,6 +23,4 @@ public interface StatisticDao extends JpaRepository<Hit, Long> {
     @Query("SELECT COUNT (DISTINCT ip) FROM Hit " +
             "WHERE uri = ?1")
     Integer findHitCountByUriWithUniqueIp(String uri);
-
-    Hit getViews(@NotNull @NotBlank @Size(max = 500) String uri);
 }
