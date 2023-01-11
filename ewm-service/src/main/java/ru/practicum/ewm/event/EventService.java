@@ -43,6 +43,7 @@ public class EventService {
 
         return EventMapper.toShortEventDtoList(events);
     }
+
     @Validated
     @Transactional
     public EventFullDto updateEvent(Long userId, UpdateEventRequest eventDto) {
@@ -85,6 +86,7 @@ public class EventService {
 
         return EventMapper.toFullEventDto(event);
     }
+
     @Validated
     @Transactional
     public EventFullDto createEvent(Long userId, NewEventDto eventDto) {
@@ -110,6 +112,7 @@ public class EventService {
         Event event = eventDao.findByIdAndInitiatorId(eventId, userId);
         return EventMapper.toFullEventDto(event);
     }
+
     @Validated
     @Transactional
     public EventFullDto cancelEventByUserIdAndEventId(Long userId, Long eventId) {
@@ -153,6 +156,7 @@ public class EventService {
         List<Event> events = eventDao.adminFindEvents(users, states, categories, start, end, pageable);
         return EventMapper.toFullEventDtoList(events);
     }
+
     @Validated
     @Transactional
     public EventFullDto adminUpdateEvent(Long eventId, NewEventDto eventDto) {
@@ -185,6 +189,7 @@ public class EventService {
 
         return EventMapper.toFullEventDto(event);
     }
+
     @Validated
     @Transactional
     public EventFullDto publishEvent(Long eventId) {
@@ -195,6 +200,7 @@ public class EventService {
 
         return EventMapper.toFullEventDto(event);
     }
+    
     @Validated
     @Transactional
     public EventFullDto rejectEvent(Long eventId) {

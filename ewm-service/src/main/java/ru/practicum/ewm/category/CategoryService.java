@@ -47,6 +47,7 @@ public class CategoryService {
 
     private void categoryValidation(Long id) {
     }
+
     @Validated
     @Transactional
     public CategoryDto createCategory(NewCategoryDto categoryDto) {

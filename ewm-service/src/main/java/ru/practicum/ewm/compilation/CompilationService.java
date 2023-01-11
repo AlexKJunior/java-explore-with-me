@@ -39,6 +39,7 @@ public class CompilationService {
                 .orElseThrow(() -> new NotFoundException("Compilation with id = " + compId + " not found"));
         return CompilationMapper.toCompilationDto(compilation);
     }
+
     @Validated
     @Transactional
     public CompilationDto createCompilation(NewCompilationDto dto) {
