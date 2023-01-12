@@ -27,22 +27,9 @@ public class CategoryService {
     @Transactional
     public CategoryDto updateCategory(CategoryDto categoryDto) {
         categoryValidation(categoryDto.getId());
-        if (categoryDto.getName() == null && categoryDto.getId() == null) {
-            throw new ValidationException("Wrong body");
-        }
-
         Category category = categoryDao.findById(categoryDto.getId())
                 .orElseThrow(() -> new NotFoundException("Category {" + categoryDto.getId() + "} not found"));
-
-        if (categoryDto.getName() != null) {
-            category.setName(categoryDto.getName());
-        }
-        try {
-            category = categoryDao.saveAndFlush(category);
-            return CategoryMapper.toCategoryDto(category);
-        } catch (RuntimeException e) {
-            throw new AlreadyExistsException("Name must be unique");
-        }
+        return categoryDto;
     }
 
     private void categoryValidation(Long id) {

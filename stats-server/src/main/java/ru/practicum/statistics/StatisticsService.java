@@ -28,7 +28,7 @@ public class StatisticsService {
         for (Hit hit : hits) {
             Integer hitCount;
             if (Boolean.TRUE.equals(unique)) {
-                hitCount = statDao.findHitCountByUriWithUniqueIp(hit.getUri());
+                hitCount = statDao.findHitCountByUriWithUniqueIpAndUriIn(hit.getUri());
             } else {
                 hitCount = statDao.findHitCountByUri(hit.getUri());
             }
