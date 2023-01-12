@@ -10,7 +10,6 @@ import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.NewCompilationDto;
 import ru.practicum.ewm.compilation.model.Compilation;
 import ru.practicum.ewm.error.NotFoundException;
-import ru.practicum.ewm.error.ValidationException;
 import ru.practicum.ewm.event.dao.EventDao;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.utility.FromSizeRequest;
