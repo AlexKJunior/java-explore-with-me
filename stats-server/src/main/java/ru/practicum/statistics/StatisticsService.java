@@ -25,12 +25,13 @@ public class StatisticsService {
         List<Hit> hits = statDao.findAllByTimestampBetweenAndUriIn(LocalDateTime
                 .parse(start, Constants.TIME_FORMATTER), LocalDateTime.parse(end, Constants.TIME_FORMATTER), uris);
         List<ViewStats> viewStats = new ArrayList<>();
+
         for (Hit hit : hits) {
             Integer hitCount;
             if (Boolean.TRUE.equals(unique)) {
-                hitCount = statDao.findHitCountByUriWithUniqueIpAndUriIn(hit.getUri());
+                hitCount = statDao.findHitCountByUriWithUniqueIpAndUriIn(start, end, uris);
             } else {
-                hitCount = statDao.findHitCountByUri(hit.getUri());
+                hitCount = statDao.findHitCountByUri(start, end, uris);
             }
             viewStats.add(new ViewStats(hit.getApp(), hit.getUri(), hitCount));
         }

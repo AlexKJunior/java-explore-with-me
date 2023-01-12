@@ -27,6 +27,7 @@ public class CompilationService {
     private final CompilationDao compilationDao;
     private final EventDao eventDao;
 
+
     public List<CompilationDto> findCompilations(Boolean pinned, int from, int size) {
         Pageable pageable = FromSizeRequest.of(from, size);
         List<Compilation> compilations = compilationDao.findByPinned(pinned, pageable).toList();
@@ -42,10 +43,6 @@ public class CompilationService {
     @Validated
     @Transactional
     public CompilationDto createCompilation(NewCompilationDto dto) {
-
-        if (dto.getTitle() == null) {
-            throw new ValidationException("Wrong body");
-        }
 
         Compilation compilation = CompilationMapper.toCompilation(dto);
         Set<Event> events = new HashSet<>(eventDao.findAllById(dto.getEvents()));
