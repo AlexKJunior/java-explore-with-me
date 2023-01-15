@@ -3,7 +3,6 @@ package ru.practicum.statistics.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.practicum.statistics.dto.ViewStats;
 import ru.practicum.statistics.model.Hit;
 
 import java.time.LocalDateTime;

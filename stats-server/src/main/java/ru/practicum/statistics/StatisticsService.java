@@ -33,7 +33,6 @@ public class StatisticsService {
                 hitCount = statDao.findHitCountByUri(statDao.getUri());
             }
             viewStats.add(new ViewStats(statDao.getApp(), statDao.getUri(), hitCount));
-        
         return viewStats;
     }
 
