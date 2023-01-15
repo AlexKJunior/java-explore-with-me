@@ -24,7 +24,7 @@ public class StatisticsService {
     public List<ViewStats> getStatistic(String start, String end, String[] uris, Boolean unique) {
         List<Hit> hits = statDao.findAllByTimestampBetweenAndUriIn(LocalDateTime
                 .parse(start, Constants.TIME_FORMATTER), LocalDateTime.parse(end, Constants.TIME_FORMATTER), uris);
-        List<ViewStats> viewStats = new ArrayList<>();
+        
         if (unique) {
             return statDao.findHitCountByUriWithUniqueIp(start, end, uris);
         } else {
