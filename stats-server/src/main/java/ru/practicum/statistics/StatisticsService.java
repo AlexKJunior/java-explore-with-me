@@ -12,6 +12,7 @@ import ru.practicum.statistics.utility.Constants;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,12 +24,17 @@ public class StatisticsService {
     public List<ViewStats> getStatistic(String start, String end, String[] uris, Boolean unique) {
         List<Hit> hits = statDao.findAllByTimestampBetweenAndUriIn(LocalDateTime
                 .parse(start, Constants.TIME_FORMATTER), LocalDateTime.parse(end, Constants.TIME_FORMATTER), uris);
-        if (unique) {
-            return statDao.findHitCountByUriWithUniqueIp(start, end, uris);
-        } else {
-            return statDao.findHitCountByUri(start, end, uris);
-        }
+        List<ViewStats> viewStats = new ArrayList<>();
 
+            Integer hitCount;
+            if (Boolean.TRUE.equals(unique)) {
+                hitCount = statDao.findHitCountByUriWithUniqueIp(statDao.getUri());
+            } else {
+                hitCount = statDao.findHitCountByUri(statDao.getUri());
+            }
+            viewStats.add(new ViewStats(statDao.getApp(), statDao.getUri(), hitCount));
+        
+        return viewStats;
     }
 
     public void addHit(EndPointHit endpointHit) {
