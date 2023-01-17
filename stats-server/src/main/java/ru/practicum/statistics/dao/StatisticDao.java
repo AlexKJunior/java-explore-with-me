@@ -3,7 +3,6 @@ package ru.practicum.statistics.dao;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import ru.practicum.statistics.dto.ViewStats;
 import ru.practicum.statistics.model.Hit;
 
 import java.time.LocalDateTime;
@@ -16,9 +15,9 @@ public interface StatisticDao extends JpaRepository<Hit, Long> {
 
     @Query("SELECT COUNT (ip) FROM Hit " +
             "WHERE uri = ?1")
-    List<ViewStats> findHitCountByUri(String start, String end, String[] uris);
+    Integer findHitCountByUri(String uri);
 
     @Query("SELECT COUNT (DISTINCT ip) FROM Hit " +
             "WHERE uri = ?1")
-    List<ViewStats> findHitCountByUriWithUniqueIp(String start, String end, String[] uris);
+    Integer findHitCountByUriWithUniqueIp(String uri);
 }

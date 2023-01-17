@@ -3,6 +3,7 @@ package ru.practicum.statistics.dto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 
 @Getter
@@ -13,9 +14,9 @@ import javax.validation.constraints.NotBlank;
 @ToString
 public class ViewStats {
 
-    @NotBlank
+    @NotNull
     private String app;
-    @NotBlank
+    @NotNull
     private String uri;
     @NotBlank
     private Integer hits;
