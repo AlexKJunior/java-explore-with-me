@@ -93,5 +93,4 @@ public class EventMapper {
         }
         return result;
     }
-
 }

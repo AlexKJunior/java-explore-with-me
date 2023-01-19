@@ -57,5 +57,4 @@ public interface EventDao extends JpaRepository<Event, Long> {
             "OR (?5 = false))")
     List<Event> findEventsWithoutText(List<Long> categories, Boolean paid, LocalDateTime rangeStart,
                                       LocalDateTime rangeEnd, Boolean onlyAvailable, Pageable pageable);
-
 }

@@ -18,6 +18,7 @@ import java.util.Set;
 @ToString
 @Builder(toBuilder = true)
 public class Event {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

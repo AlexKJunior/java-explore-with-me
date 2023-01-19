@@ -102,7 +102,6 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
-
     public EventFullDto findEventByUserIdAndEventId(Long userId, Long eventId) {
         Event event = eventDao.findByIdAndInitiatorId(eventId, userId);
         return EventMapper.toFullEventDto(event);
@@ -115,7 +114,6 @@ public class EventService {
         eventDao.save(event);
         return EventMapper.toFullEventDto(event);
     }
-
 
     public List<EventFullDto> adminFindEvents(List<Long> users, List<EventState> states, List<Long> categories,
                                               String rangeStart, String rangeEnd, int from, int size) {

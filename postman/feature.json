@@ -1,9 +1,9 @@
 {
   "info": {
-    "_postman_id": "2f1c366a-b9cd-4741-808d-05d34d922491",
+    "_postman_id": "250ab77b-4534-4e36-ab70-7fce358fac51",
     "name": "Like",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "21191133"
+    "_exporter_id": "21857559"
   },
   "item": [
     {
@@ -81,14 +81,14 @@
               "                pm.expect(response.code).to.eql(200);\r",
               "            });\r",
               "            var data = response.json();\r",
-              "            var rate = -1; \r",
+              "            var userRate = -1; \r",
               "            if(emojiUpper == 'LIKE'){\r",
-              "               rate = 1; \r",
+              "               userRate = 1; \r",
               "            }\r",
-              "            console.log(rate)\r",
-              "            pm.test(\"Event должен содержать Rate: \" + rate, function(){\r",
+              "            console.log(userRate)\r",
+              "            pm.test(\"Event должен содержать userRate: \" + userRate, function(){\r",
               "                console.log(response.json().initiator);\r",
-              "                pm.expect(data.rate).equal(rate);\r",
+              "                pm.expect(data.userRate).equal(userRate);\r",
               "\r",
               "            });\r",
               "        });"
@@ -217,14 +217,14 @@
               "                pm.expect(response.code).to.eql(200);\r",
               "            });\r",
               "            var data = response.json();\r",
-              "            var rate = -1; \r",
+              "            var userRate = -1; \r",
               "            if(emojiUpper == 'LIKE'){\r",
-              "               rate = 1; \r",
+              "               userRate = 1; \r",
               "            }\r",
-              "            console.log(rate)\r",
-              "            pm.test(\"Initiator НЕ должен содержать Rate: \", function(){\r",
+              "            console.log(userRate)\r",
+              "            pm.test(\"Initiator НЕ должен содержать userRate: \", function(){\r",
               "                console.log(response.json().initiator);\r",
-              "                pm.expect(response.json().initiator.rate).to.be.undefined;\r",
+              "                pm.expect(response.json().initiator.userRate).to.be.undefined;\r",
               "\r",
               "            });\r",
               "\r",
@@ -427,11 +427,11 @@
             },
             {
               "key": "eid1",
-              "value": null
+              "value": ""
             },
             {
               "key": "eid2",
-              "value": null
+              "value": ""
             }
           ]
         },
@@ -516,11 +516,11 @@
               "                pm.expect(response.code).to.eql(200);\r",
               "            });\r",
               "            var data = response.json();\r",
-              "            var rate = 0; \r",
-              "            console.log(rate)\r",
-              "            pm.test(\"Event должен содержать Rate: \" + rate, function(){\r",
+              "            var userRate = 0; \r",
+              "            console.log(userRate)\r",
+              "            pm.test(\"Event должен содержать userRate: \" + userRate, function(){\r",
               "                console.log(response.json().initiator);\r",
-              "                pm.expect(data.rate).equal(rate);\r",
+              "                pm.expect(data.userRate).equal(userRate);\r",
               "\r",
               "            });\r",
               "        });"

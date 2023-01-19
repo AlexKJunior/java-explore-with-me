@@ -40,8 +40,7 @@ public class PrivateEventController {
         log.info("Обновлено событие, {}", dto);
         return dto;
     }
-
-
+    
     @PostMapping(value = "/users/{userId}/events")
     EventFullDto createEvent(@PathVariable Long userId,
                              @RequestBody NewEventDto event) {

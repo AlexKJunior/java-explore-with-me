@@ -15,6 +15,7 @@ import java.util.Set;
 @Builder(toBuilder = true)
 @ToString
 public class EventFullDto {
+
     private String annotation;
     private CategoryDto category;
     private Integer confirmedRequests;

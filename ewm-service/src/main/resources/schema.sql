@@ -65,7 +65,6 @@ CREATE TABLE IF NOT EXISTS events_dislikes
     CONSTRAINT pk_events_users_dislikes PRIMARY KEY (user_id, event_id)
 );
 
-
 CREATE TABLE IF NOT EXISTS events_compilations
 (
     compilation_id BIGINT NOT NULL
