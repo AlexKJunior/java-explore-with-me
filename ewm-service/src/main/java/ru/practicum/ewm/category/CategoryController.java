@@ -8,6 +8,8 @@ import ru.practicum.ewm.category.dto.CategoryDto;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 @Slf4j
 @Validated
 @RestController
