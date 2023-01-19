@@ -8,7 +8,6 @@ import ru.practicum.ewm.compilation.CompilationService;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.NewCompilationDto;
 
-
 import javax.validation.Valid;
 
 @Slf4j
@@ -59,4 +58,3 @@ public class CompilationsAdminController {
         log.info("Pinned compilation {}", compId);
     }
 }
-    
