@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import ru.practicum.ewm.compilation.dao.CompilationDao;
 import ru.practicum.ewm.compilation.dto.CompilationDto;
 import ru.practicum.ewm.compilation.dto.NewCompilationDto;
@@ -39,6 +41,7 @@ public class CompilationService {
         return CompilationMapper.toCompilationDto(compilation);
     }
 
+    @Validated
     @Transactional
     public CompilationDto createCompilation(NewCompilationDto dto) {
 

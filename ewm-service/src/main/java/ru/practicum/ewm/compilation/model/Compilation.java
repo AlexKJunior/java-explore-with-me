@@ -4,6 +4,8 @@ import lombok.*;
 import ru.practicum.ewm.event.model.Event;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+
 import java.util.Set;
 
 @Entity
@@ -18,6 +20,7 @@ public class Compilation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Size(max = 100)
     @Column
     private String title;
     @Column

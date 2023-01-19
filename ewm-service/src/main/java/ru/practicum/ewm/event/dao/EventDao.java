@@ -15,6 +15,7 @@ public interface EventDao extends JpaRepository<Event, Long> {
 
     List<Event> findEventsByInitiatorId(Long initiatorId, Pageable pageable);
 
+
     @Query("SELECT e FROM Event e " +
             "JOIN e.userLikes u " +
             "WHERE u.id = ?1")

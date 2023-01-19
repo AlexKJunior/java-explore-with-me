@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.category.dto.CategoryDto;
 
-import java.util.List;
+import javax.validation.Valid;
 
 @Slf4j
 @Validated
@@ -26,7 +26,9 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{catId}")
-    CategoryDto getCategoryById(@PathVariable Long catId) {
+
+    CategoryDto getCategoryById(@Valid @PathVariable Long catId) {
+
         CategoryDto dto = categoryService.getCategoryById(catId);
         log.info("Got category, {}", dto);
         return dto;

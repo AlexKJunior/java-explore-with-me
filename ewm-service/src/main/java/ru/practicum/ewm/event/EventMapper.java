@@ -38,6 +38,7 @@ public class EventMapper {
                 .title(event.getTitle())
                 .userLikes(event.getUserLikes())
                 .userDislikes(event.getUserDislikes())
+
                 .build();
     }
 
@@ -53,6 +54,7 @@ public class EventMapper {
                 .title(event.getTitle())
                 .likes((long) event.getUserLikes().size())
                 .dislikes((long) event.getUserDislikes().size())
+
                 .build();
     }
 

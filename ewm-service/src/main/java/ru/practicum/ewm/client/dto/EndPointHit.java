@@ -11,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class EndPointHit {
     Long id;

@@ -10,10 +10,12 @@ import ru.practicum.ewm.event.dto.EventShortDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
 import ru.practicum.ewm.event.dto.UpdateEventRequest;
 
+
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
 import java.util.Set;
+
 
 @Slf4j
 @Validated
@@ -40,7 +42,7 @@ public class PrivateEventController {
         log.info("Обновлено событие, {}", dto);
         return dto;
     }
-    
+
     @PostMapping(value = "/users/{userId}/events")
     EventFullDto createEvent(@PathVariable Long userId,
                              @RequestBody NewEventDto event) {
@@ -116,4 +118,5 @@ public class PrivateEventController {
         log.info("Events disliked by user {}", userId);
         return eventService.findEventsDislikedByUser(userId, from, size);
     }
+
 }

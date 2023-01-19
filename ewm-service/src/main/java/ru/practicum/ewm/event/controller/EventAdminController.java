@@ -9,6 +9,9 @@ import ru.practicum.ewm.event.EventState;
 import ru.practicum.ewm.event.dto.EventFullDto;
 import ru.practicum.ewm.event.dto.NewEventDto;
 
+
+import javax.validation.Valid;
+
 import java.util.List;
 
 @Slf4j
@@ -35,7 +38,9 @@ public class EventAdminController {
     }
 
     @PutMapping(value = "/{eventId}")
-    public EventFullDto adminUpdateEvent(@PathVariable Long eventId, @RequestBody NewEventDto eventDto) {
+
+    public EventFullDto adminUpdateEvent(@Valid @PathVariable Long eventId, @RequestBody NewEventDto eventDto) {
+
         EventFullDto dto = eventService.adminUpdateEvent(eventId, eventDto);
         log.info("Admin updated event, {}", dto);
         return dto;
@@ -49,7 +54,9 @@ public class EventAdminController {
     }
 
     @PatchMapping(value = "/{eventId}/reject")
-    public EventFullDto rejectEvent(@PathVariable Long eventId) {
+
+    public EventFullDto rejectEvent(@Valid @PathVariable Long eventId) {
+
         EventFullDto dto = eventService.rejectEvent(eventId);
         log.info("Admin rejected event, {}", dto);
         return dto;

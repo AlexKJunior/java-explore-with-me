@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
+
 import ru.practicum.ewm.category.CategoryMapper;
 import ru.practicum.ewm.category.CategoryService;
 import ru.practicum.ewm.error.NotFoundException;
@@ -17,6 +19,7 @@ import ru.practicum.ewm.event.dto.UpdateEventRequest;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.dao.UserDao;
 import ru.practicum.ewm.user.model.User;
+
 import ru.practicum.ewm.utility.Constants;
 import ru.practicum.ewm.utility.FromSizeRequest;
 
@@ -41,6 +44,8 @@ public class EventService {
         return EventMapper.toShortEventDtoList(events);
     }
 
+
+    @Validated
     @Transactional
     public EventFullDto updateEvent(Long userId, UpdateEventRequest eventDto) {
 
@@ -83,6 +88,7 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
+    @Validated
     @Transactional
     public EventFullDto createEvent(Long userId, NewEventDto eventDto) {
 
@@ -107,6 +113,7 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
+    @Validated
     @Transactional
     public EventFullDto cancelEventByUserIdAndEventId(Long userId, Long eventId) {
         Event event = eventDao.findByIdAndInitiatorId(eventId, userId);
@@ -149,6 +156,7 @@ public class EventService {
         return EventMapper.toFullEventDtoList(events);
     }
 
+    @Validated
     @Transactional
     public EventFullDto adminUpdateEvent(Long eventId, NewEventDto eventDto) {
         Event event = eventDao.findById(eventId)
@@ -181,6 +189,7 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
+    @Validated
     @Transactional
     public EventFullDto publishEvent(Long eventId) {
         Event event = eventDao.findById(eventId)

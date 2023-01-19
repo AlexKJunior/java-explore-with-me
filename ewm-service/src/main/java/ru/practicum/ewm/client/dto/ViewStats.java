@@ -11,10 +11,10 @@ import javax.validation.constraints.NotBlank;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ViewStats {
-
     @NotBlank
     private String app;
     @NotBlank
     private String uri;
+    @NotBlank
     private Long hits;
 }

@@ -10,6 +10,7 @@ import ru.practicum.statistics.mapper.EndPointHitMapper;
 import ru.practicum.statistics.model.Hit;
 import ru.practicum.statistics.utility.Constants;
 
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,11 @@ import java.util.List;
 public class StatisticsService {
     private final StatisticDao statDao;
 
-    public List<ViewStats> getStatistic(String start, String end, List<String> uris, Boolean unique) {
+    public List<ViewStats> getStatistic(String start, String end, String[] uris, Boolean unique) {
         List<Hit> hits = statDao.findAllByTimestampBetweenAndUriIn(LocalDateTime
                 .parse(start, Constants.TIME_FORMATTER), LocalDateTime.parse(end, Constants.TIME_FORMATTER), uris);
         List<ViewStats> viewStats = new ArrayList<>();
-
-        for (Hit hit : hits) {
+        for  (Hit hit : hits) {
             Integer hitCount;
             if (Boolean.TRUE.equals(unique)) {
                 hitCount = statDao.findHitCountByUriWithUniqueIp(hit.getUri());
@@ -41,7 +41,7 @@ public class StatisticsService {
         statDao.save(EndPointHitMapper.toHit(endpointHit));
     }
 
-    public List<ViewStats> findEventViews(String start, String end, List<String> uris, Boolean unique) {
+    public List<ViewStats> findEventViews(String start, String end, String[] uris, Boolean unique) {
         return getStatistic(start, end, uris, unique);
     }
 }

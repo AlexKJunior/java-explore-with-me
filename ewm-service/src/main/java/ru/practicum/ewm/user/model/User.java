@@ -3,6 +3,9 @@ package ru.practicum.ewm.user.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 
 @Entity
 @Table(name = "users")
@@ -35,5 +38,4 @@ public class User {
     public int hashCode() {
         return id.hashCode();
     }
-
 }
