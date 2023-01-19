@@ -17,26 +17,45 @@ import javax.validation.Valid;
 @RequestMapping(path = "/admin/compilations")
 @RequiredArgsConstructor
 public class CompilationsAdminController {
+public class CompilationsAdminController {
 
-  private final CategoryService categoryService;
-
-    @PatchMapping
-    public CategoryDto updateCategory(@RequestBody CategoryDto category) {
-        CategoryDto dto = categoryService.updateCategory(category);
-        log.info("Updated category: {}", category);
-        return dto;
-    }
+    private final CompilationService compilationService;
 
     @PostMapping
-    public CategoryDto createCategory(@RequestBody NewCategoryDto category) {
-        CategoryDto dto = categoryService.createCategory(category);
-        log.info("Created category: {}", category);
-        return dto;
+    CompilationDto createCompilation(@RequestBody NewCompilationDto dto) {
+        CompilationDto comp = compilationService.createCompilation(dto);
+        log.info("Created compilation, {}", dto);
+        return comp;
     }
 
-    @DeleteMapping(value = "/{catId}")
-    public void deleteCategory(@PathVariable Long catId) {
-        categoryService.deleteCategory(catId);
-        log.info("Deleted category: {}", catId);
+    @DeleteMapping(value = "/{compId}")
+    void deleteCompilation(@PathVariable Long compId) {
+        compilationService.deleteCompilation(compId);
+        log.info("Deleted compilation {}", compId);
+    }
+
+    @DeleteMapping(value = "/{compId}/events/{eventId}")
+    void deleteEventFromCompilation(@PathVariable Long compId,
+                                    @PathVariable Long eventId) {
+        compilationService.deleteEventFromCompilation(compId, eventId);
+        log.info("Deleted event {} from compilation {}", eventId, compId);
+    }
+
+    @PatchMapping(value = "/{compId}/events/{eventId}")
+    void addEventToCompilation(@PathVariable Long compId, @PathVariable Long eventId) {
+        compilationService.addEventToCompilation(compId, eventId);
+        log.info("Added event {} to compilation {}", eventId, compId);
+    }
+
+    @DeleteMapping(value = "/{compId}/pin")
+    void unpinCompilation(@PathVariable Long compId) {
+        compilationService.unpinCompilation(compId);
+        log.info("Unpinned compilation {}", compId);
+    }
+
+    @PatchMapping(value = "/{compId}/pin")
+    void pinCompilation(@PathVariable Long compId) {
+        compilationService.pinCompilation(compId);
+        log.info("Pinned compilation {}", compId);
     }
 }
