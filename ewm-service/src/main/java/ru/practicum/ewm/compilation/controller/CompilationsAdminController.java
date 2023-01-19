@@ -58,6 +58,5 @@ public class CompilationsAdminController {
         compilationService.pinCompilation(compId);
         log.info("Pinned compilation {}", compId);
     }
-
 }
     
