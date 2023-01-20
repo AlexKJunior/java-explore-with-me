@@ -43,5 +43,4 @@ public class StatisticsController {
         log.info("Получена статистика по просмотрам");
         return eventViews;
     }
-
 }

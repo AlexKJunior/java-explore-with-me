@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+
 import ru.practicum.ewm.category.CategoryMapper;
 import ru.practicum.ewm.category.CategoryService;
 import ru.practicum.ewm.error.NotFoundException;
@@ -17,18 +18,17 @@ import ru.practicum.ewm.event.dto.NewEventDto;
 import ru.practicum.ewm.event.dto.UpdateEventRequest;
 import ru.practicum.ewm.event.model.Event;
 import ru.practicum.ewm.user.dao.UserDao;
+import ru.practicum.ewm.user.model.User;
+
 import ru.practicum.ewm.utility.Constants;
 import ru.practicum.ewm.utility.FromSizeRequest;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class EventService {
 
@@ -45,7 +45,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto updateEvent(Long userId, UpdateEventRequest eventDto) {
 
         Event event = eventDao.findById(eventDto.getEventId())
@@ -88,7 +87,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto createEvent(Long userId, NewEventDto eventDto) {
 
         if (eventDto.getAnnotation() == null && eventDto.getDescription() == null) {
@@ -107,21 +105,18 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
-
     public EventFullDto findEventByUserIdAndEventId(Long userId, Long eventId) {
         Event event = eventDao.findByIdAndInitiatorId(eventId, userId);
         return EventMapper.toFullEventDto(event);
     }
 
     @Validated
-    @Transactional
     public EventFullDto cancelEventByUserIdAndEventId(Long userId, Long eventId) {
         Event event = eventDao.findByIdAndInitiatorId(eventId, userId);
         event.setState(EventState.CANCELED);
         eventDao.save(event);
         return EventMapper.toFullEventDto(event);
     }
-
 
     public List<EventFullDto> adminFindEvents(List<Long> users, List<EventState> states, List<Long> categories,
                                               String rangeStart, String rangeEnd, int from, int size) {
@@ -158,7 +153,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto adminUpdateEvent(Long eventId, NewEventDto eventDto) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -191,7 +185,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto publishEvent(Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -201,8 +194,6 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
-
-    @Transactional
     public EventFullDto rejectEvent(Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -253,5 +244,88 @@ public class EventService {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
         return EventMapper.toFullEventDto(event);
+    }
+
+    public EventShortDto addEventLike(Long userId, Long eventId) {
+        Event event = eventDao.findById(eventId)
+                .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+
+        if (event.getUserDislikes().contains(user)) {
+            Set<User> dislikedByUser = event.getUserDislikes();
+            dislikedByUser.remove(user);
+            event = eventDao.save(event);
+        } else {
+            Set<User> likedByUsers = event.getUserLikes();
+            likedByUsers.add(user);
+            event = eventDao.save(event);
+        }
+        return EventMapper.toEventShortDto(event);
+    }
+
+    public EventShortDto removeEventLike(Long userId, Long eventId) {
+        Event event = eventDao.findById(eventId)
+                .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+        Set<User> likedByUsers = event.getUserLikes();
+        likedByUsers.remove(user);
+        event = eventDao.save(event);
+        return EventMapper.toEventShortDto(event);
+    }
+
+    public Set<EventShortDto> findEventsLikedByUser(Long userId, int from, int size) {
+
+        userDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+
+        Pageable pageable = FromSizeRequest.of(from, size);
+
+        List<Event> events = eventDao.findEventsByUserLikes(userId, pageable);
+
+        return EventMapper.toShortEventDtoSet(events);
+    }
+
+    public EventShortDto addEventDislike(Long userId, Long eventId) {
+
+        Event event = eventDao.findById(eventId)
+                .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+
+        if (event.getUserLikes().contains(user)) {
+            Set<User> likedByUser = event.getUserLikes();
+            likedByUser.remove(user);
+            event = eventDao.save(event);
+        } else {
+            Set<User> dislikedByUser = event.getUserDislikes();
+            dislikedByUser.add(user);
+            event = eventDao.save(event);
+        }
+
+        return EventMapper.toEventShortDto(event);
+    }
+
+    public EventShortDto removeEventDislike(Long userId, Long eventId) {
+        Event event = eventDao.findById(eventId)
+                .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
+        User user = userDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+        Set<User> dislikedByUser = event.getUserDislikes();
+        dislikedByUser.remove(user);
+        event = eventDao.save(event);
+        return EventMapper.toEventShortDto(event);
+    }
+
+    public Set<EventShortDto> findEventsDislikedByUser(Long userId, int from, int size) {
+        userDao.findById(userId)
+                .orElseThrow(() -> new NotFoundException("User " + userId + " not found"));
+
+        Pageable pageable = FromSizeRequest.of(from, size);
+
+        List<Event> events = eventDao.findEventsDislikedByUser(userId, pageable);
+
+        return EventMapper.toShortEventDtoSet(events);
     }
 }

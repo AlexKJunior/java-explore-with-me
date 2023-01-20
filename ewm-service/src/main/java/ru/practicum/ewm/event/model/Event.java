@@ -8,7 +8,10 @@ import ru.practicum.ewm.user.model.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import java.util.Set;
 import java.time.LocalDateTime;
+
 
 @Entity
 @Table(name = "events")
@@ -59,4 +62,14 @@ public class Event {
     @Column(name = "state")
     @Enumerated(EnumType.STRING)
     private EventState state;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "events_likes",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    Set<User> userLikes;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "events_dislikes",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    Set<User> userDislikes;
 }

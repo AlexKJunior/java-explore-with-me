@@ -5,6 +5,11 @@ import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.event.EventState;
 import ru.practicum.ewm.user.dto.UserShortDto;
 
+import ru.practicum.ewm.user.model.User;
+
+import java.util.Set;
+
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -28,4 +33,6 @@ public class EventFullDto {
     private EventState state;
     private String title;
     private Long views;
+    private Set<User> userLikes;
+    private Set<User> userDislikes;
 }

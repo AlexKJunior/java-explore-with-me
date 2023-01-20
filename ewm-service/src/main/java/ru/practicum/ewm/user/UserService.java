@@ -14,7 +14,7 @@ import ru.practicum.ewm.utility.FromSizeRequest;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class UserService {
 
@@ -30,7 +30,6 @@ public class UserService {
         return UserMapper.toUserDtoList(users);
     }
 
-    @Transactional
     public UserDto createUser(UserDto dto) {
 
         if (dto.getName() == null || dto.getEmail() == null) {
@@ -46,7 +45,6 @@ public class UserService {
         }
     }
 
-    @Transactional
     public void deleteUser(Long userId) {
         userDao.deleteById(userId);
     }

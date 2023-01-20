@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm.category.dto.CategoryDto;
 
 import javax.validation.Valid;
+
 import java.util.List;
 
 @Slf4j
@@ -27,7 +28,9 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/{catId}")
+
     CategoryDto getCategoryById(@Valid @PathVariable Long catId) {
+
         CategoryDto dto = categoryService.getCategoryById(catId);
         log.info("Got category, {}", dto);
         return dto;

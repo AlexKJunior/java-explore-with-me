@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.validation.annotation.Validated;
+
 import ru.practicum.ewm.category.dao.CategoryDao;
 import ru.practicum.ewm.category.dto.CategoryDto;
 import ru.practicum.ewm.category.dto.NewCategoryDto;
@@ -27,6 +29,7 @@ public class CategoryService {
     @Transactional
     public CategoryDto updateCategory(CategoryDto categoryDto) {
         categoryValidation(categoryDto.getId());
+
         if (categoryDto.getName() == null && categoryDto.getId() == null) {
             throw new ValidationException("Wrong body");
         }

@@ -11,6 +11,7 @@ import ru.practicum.ewm.user.dto.UserShortDto;
 @ToString
 @Builder(toBuilder = true)
 public class EventShortDto {
+
     private String annotation;
     private CategoryDto category;
     private Integer confirmedRequests;
@@ -20,4 +21,6 @@ public class EventShortDto {
     private Boolean paid;
     private String title;
     private Long views;
+    private Long likes;
+    private Long dislikes;
 }
