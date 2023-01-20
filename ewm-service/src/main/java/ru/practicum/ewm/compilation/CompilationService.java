@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class CompilationService {
 
@@ -42,7 +42,6 @@ public class CompilationService {
     }
 
     @Validated
-    @Transactional
     public CompilationDto createCompilation(NewCompilationDto dto) {
 
         if (dto.getTitle() == null) {
@@ -56,13 +55,11 @@ public class CompilationService {
         return CompilationMapper.toCompilationDto(compilation);
     }
 
-    @Transactional
     public void deleteCompilation(Long compId) {
         compValidation(compId);
         compilationDao.deleteById(compId);
     }
 
-    @Transactional
     public void deleteEventFromCompilation(Long compId, Long eventId) {
         compValidation(compId);
         eventValidation(eventId);
@@ -79,7 +76,6 @@ public class CompilationService {
         }
     }
 
-    @Transactional
     public void addEventToCompilation(Long compId, Long eventId) {
         compValidation(compId);
         eventValidation(eventId);
@@ -94,7 +90,6 @@ public class CompilationService {
         }
     }
 
-    @Transactional
     public void unpinCompilation(Long compId) {
         compValidation(compId);
         Compilation compilation = compilationDao.findById(compId).get();
@@ -104,7 +99,6 @@ public class CompilationService {
         }
     }
 
-    @Transactional
     public void pinCompilation(Long compId) {
         compValidation(compId);
         Compilation compilation = compilationDao.findById(compId).get();
