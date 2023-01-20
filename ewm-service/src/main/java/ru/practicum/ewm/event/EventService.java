@@ -28,7 +28,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
 @RequiredArgsConstructor
 public class EventService {
 
@@ -44,9 +44,7 @@ public class EventService {
         return EventMapper.toShortEventDtoList(events);
     }
 
-
     @Validated
-    @Transactional
     public EventFullDto updateEvent(Long userId, UpdateEventRequest eventDto) {
 
         Event event = eventDao.findById(eventDto.getEventId())
@@ -89,7 +87,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto createEvent(Long userId, NewEventDto eventDto) {
 
         if (eventDto.getAnnotation() == null && eventDto.getDescription() == null) {
@@ -114,7 +111,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto cancelEventByUserIdAndEventId(Long userId, Long eventId) {
         Event event = eventDao.findByIdAndInitiatorId(eventId, userId);
         event.setState(EventState.CANCELED);
@@ -157,7 +153,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto adminUpdateEvent(Long eventId, NewEventDto eventDto) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -190,7 +185,6 @@ public class EventService {
     }
 
     @Validated
-    @Transactional
     public EventFullDto publishEvent(Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -200,7 +194,6 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
-    @Transactional
     public EventFullDto rejectEvent(Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -253,7 +246,6 @@ public class EventService {
         return EventMapper.toFullEventDto(event);
     }
 
-    @Transactional
     public EventShortDto addEventLike(Long userId, Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -272,7 +264,6 @@ public class EventService {
         return EventMapper.toEventShortDto(event);
     }
 
-    @Transactional
     public EventShortDto removeEventLike(Long userId, Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
@@ -296,7 +287,6 @@ public class EventService {
         return EventMapper.toShortEventDtoSet(events);
     }
 
-    @Transactional
     public EventShortDto addEventDislike(Long userId, Long eventId) {
 
         Event event = eventDao.findById(eventId)
@@ -317,7 +307,6 @@ public class EventService {
         return EventMapper.toEventShortDto(event);
     }
 
-    @Transactional
     public EventShortDto removeEventDislike(Long userId, Long eventId) {
         Event event = eventDao.findById(eventId)
                 .orElseThrow(() -> new NotFoundException("Event " + eventId + " not found"));
